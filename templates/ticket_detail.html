@@ -1,0 +1,214 @@
+{% extends 'base.html' %} {% block content %}
+<br />
+<div class="container">
+  <div class="card shadow">
+    <div class="card-header">
+      <!-- Dropdown Menu Button -->
+
+      <div class="dropdown">
+        <button
+          class="btn btn-primary dropdown-toggle float-right"
+          type="button"
+          id="dropdownMenu2"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Actions
+        </button>
+        <!-- Status Dropdown Menu -->
+
+        <!-- NEW -->
+        {% if ticket.status == 'New' %}
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="/ticket/{{ticket.id}}/edit/"
+            >Edit Ticket</a
+          >
+          <a class="dropdown-item" href="/assign/{{ticket.id}}/"
+            >Assign Ticket</a
+          >
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/invalid/{{ticket.id}}/"
+            >Mark as Invalid</a
+          >
+        </div>
+
+        {% endif %}
+        <!-- IN PROGRESS -->
+        {% if ticket.status == 'In Progress' %}
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="/ticket/{{ticket.id}}/edit/"
+            >Edit Ticket</a
+          >
+          <a class="dropdown-item" href="/complete/{{ticket.id}}/"
+            >Complete Ticket</a
+          >
+          <a class="dropdown-item" href="/return/{{ticket.id}}/"
+            >Return Ticket</a
+          >
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/invalid/{{ticket.id}}/"
+            >Mark as Invalid</a
+          >
+        </div>
+
+        {% endif %}
+        <!-- COMPLETED -->
+        {% if ticket.status == 'Done' %}
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="/reopen/{{ticket.id}}/"
+            >Reopen Ticket</a
+          >
+        </div>
+        {% endif %}
+        <!-- INVALID -->
+        {% if ticket.status == 'Invalid' %}
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="/reopen/{{ticket.id}}/"
+            >Reopen Ticket</a
+          >
+        </div>
+        {% endif %}
+        <!-- REMAINDER OF CARD HEADER -->
+
+        <h3 class="card-title">
+          <span class="badge badge-secondary">{{ticket.id}}</span>
+          {{ticket.title}}
+        </h3>
+        {% if ticket.status == 'In Progress' %}
+        <p class="card-subtitle">
+          Assigned To:
+          <a href="/user/{{ticket.assigned_to.id}}/">{{ticket.assigned_to}}</a>
+        </p>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- General Ticket Information -->
+
+    <!-- Status Views -->
+
+    <!-- NEW -->
+    {% if ticket.status == 'New' %}
+    <div class="row">
+      <div class="col-md-3">
+        <div class="card" style="width: 18rem">
+          <h5 class="card-header">Information</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Status: {{ticket.status}}</li>
+            <li class="list-group-item">Time Filed: {{ticket.time_filed}}</li>
+            <li class="list-group-item">
+              Filed by:
+              <a href="/user/{{ticket.submitted_by.id}}/"
+                >{{ticket.submitted_by}}</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-text" style="font-weight: bold">Description</h5>
+          <p class="card-text" style="font-style: italic">
+            {{ticket.description}}
+          </p>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- IN PROGRESS -->
+    {% if ticket.status == 'In Progress' %}
+    <div class="row">
+      <div class="col-md-3">
+        <div class="card" style="width: 18rem">
+          <h5 class="card-header">Information</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Status: {{ticket.status}}</li>
+            <li class="list-group-item">Time Filed: {{ticket.time_filed}}</li>
+            <li class="list-group-item">
+              Filed by:
+              <a href="/user/{{ticket.submitted_by.id}}/"
+                >{{ticket.submitted_by}}</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-text" style="font-weight: bold">Description</h5>
+          <p class="card-text" style="font-style: italic">
+            {{ticket.description}}
+          </p>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- COMPLETE -->
+    {% if ticket.status == 'Done' %}
+    <div class="row">
+      <div class="col-md-3">
+        <div class="card" style="width: 18rem">
+          <h5 class="card-header">Information</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Status: {{ticket.status}}</li>
+            <li class="list-group-item">Time Filed: {{ticket.time_filed}}</li>
+            <li class="list-group-item">
+              Filed by:
+              <a href="/user/{{ticket.submitted_by.id}}/"
+                >{{ticket.submitted_by}}</a
+              >
+            </li>
+            <li class="list-group-item">
+              Completed by:
+              <a href="/user/{{ticket.completed_by.id}}/">
+                {{ticket.completed_by}}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-text" style="font-weight: bold">Description</h5>
+          <p class="card-text" style="font-style: italic">
+            {{ticket.description}}
+          </p>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- INVALID -->
+    {% if ticket.status == 'Invalid' %}
+    <div class="row">
+      <div class="col-md-3">
+        <div class="card" style="width: 18rem">
+          <h5 class="card-header">Information</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Status: {{ticket.status}}</li>
+            <li class="list-group-item">Time Filed: {{ticket.time_filed}}</li>
+            <li class="list-group-item">
+              Filed by:
+              <a href="/user/{{ticket.submitted_by.id}}/"
+                >{{ticket.submitted_by}}</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-text" style="font-weight: bold">Description</h5>
+          <p class="card-text" style="font-style: italic">
+            {{ticket.description}}
+          </p>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

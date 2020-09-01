@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">Register User</h1>
+    <p class="lead">Create new user for access into BugTracker.</p>
+  </div>
+</div>
+
+<div class="container-fluid">
+<div class="card text-center">
+  <div class="card-header">
+    Create a User Account for Access
+  </div>
+  <div class="card-body">
+    <p class="card-text">
+    <div class="form-group">
+    <form action='' method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Register">
+    </form>
+    </div>
+    </p>
+  </div>
+</div>
+</div>
+{% endblock  %}

@@ -1,5 +1,156 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %}
+<div class="jumbotron">
+  <h1 class="display-4">Welcome to the BugTracker!</h1>
+  <p class="lead">
+    Our support tracking tool to getting the bugs out of your stuff.
+  </p>
+</div>
 
-{% block content %}
-<h1>Hello World!</h1>
-{% endblock  %}
+{% if request.user.is_authenticated %}
+
+<div class="container-sm">
+  <h3 style="text-align: center; color: gray">
+    Hello, {{ request.user.display_name }}!
+  </h3>
+  <hr class="my-4" />
+</div>
+
+{% endif %}
+<div class="container-fluid"> 
+   <div class="row row-cols-1 row-cols-md-2">
+    <div class="col mb-4">
+      <div class="card shadow">
+        <div class="card-body">
+          <h5 class="card-title" style="text-align: center">
+              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cpu-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M5.5.5a.5.5 0 0 0-1 0V2A2.5 2.5 0 0 0 2 4.5H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2A2.5 2.5 0 0 0 4.5 14v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14a2.5 2.5 0 0 0 2.5-2.5h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14A2.5 2.5 0 0 0 11.5 2V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5zm1 4.5A1.5 1.5 0 0 0 5 6.5v3A1.5 1.5 0 0 0 6.5 11h3A1.5 1.5 0 0 0 11 9.5v-3A1.5 1.5 0 0 0 9.5 5h-3zm0 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>
+                </svg> New</h5>
+          <p class="card-text">
+            <table class="table list-group-flush table-hover">
+            <thead>
+                <tr>
+                    <td>#</td>
+                    <td>Title</td>
+                    <td>Filed By</td>
+                    <td>Assigned To</td>
+                    <td>Completed By</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for n in new %}
+                    <tr>
+                        <td><span class="badge badge-dark">{{ n.id }}</span></td>
+                        <td><a href="/ticket/{{n.id}}/">{{ n.title }}</a></td>
+                        <td><a href="/user/{{n.submitted_by.id}}/">{{ n.submitted_by }}</a></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col mb-4">
+      <div class="card shadow">
+        <div class="card-body">
+          <h5 class="card-title" style="text-align: center"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cpu-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M5.5.5a.5.5 0 0 0-1 0V2A2.5 2.5 0 0 0 2 4.5H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2A2.5 2.5 0 0 0 4.5 14v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14a2.5 2.5 0 0 0 2.5-2.5h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14A2.5 2.5 0 0 0 11.5 2V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5zm1 4.5A1.5 1.5 0 0 0 5 6.5v3A1.5 1.5 0 0 0 6.5 11h3A1.5 1.5 0 0 0 11 9.5v-3A1.5 1.5 0 0 0 9.5 5h-3zm0 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>
+            </svg> In Progress</h5>
+          <p class="card-text">
+            <table class="table list-group-flush table-hover">
+            <thead>
+                <tr>
+                    <td>#</td>
+                    <td>Title</td>
+                    <td>Filed By</td>
+                    <td>Assigned To</td>
+                    <td>Completed By</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in progress %}
+                    <tr>
+                        <td><span class="badge badge-dark">{{ p.id }}</span></td>
+                        <td><a href="/ticket/{{p.id}}/">{{ p.title }}</a></td>
+                        <td><a href="/user/{{p.submitted_by.id}}/">{{ p.submitted_by }}</a></td>
+                        <td><a href="/user/{{p.assigned_to.id}}/">{{ p.assigned_to }}</a></td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+          </p>
+        </div>
+      </div>
+    </div>
+        <div class="col mb-4">
+      <div class="card shadow">
+        <div class="card-body">
+          <h5 class="card-title" style="text-align: center"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cpu-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M5.5.5a.5.5 0 0 0-1 0V2A2.5 2.5 0 0 0 2 4.5H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2A2.5 2.5 0 0 0 4.5 14v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14a2.5 2.5 0 0 0 2.5-2.5h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14A2.5 2.5 0 0 0 11.5 2V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5zm1 4.5A1.5 1.5 0 0 0 5 6.5v3A1.5 1.5 0 0 0 6.5 11h3A1.5 1.5 0 0 0 11 9.5v-3A1.5 1.5 0 0 0 9.5 5h-3zm0 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>
+            </svg> Completed</h5>
+          <p class="card-text">
+            <table class="table list-group-flush table-hover">
+            <thead>
+                <tr>
+                    <td>#</td>
+                    <td>Title</td>
+                    <td>Filed By</td>
+                    <td>Assigned To</td>
+                    <td>Completed By</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in completed %}
+                    <tr>
+                        <td><span class="badge badge-dark">{{ c.id }}</span></td>
+                        <td><a href="/ticket/{{c.id}}/">{{ c.title }}</a></td>
+                        <td><a href="/user/{{c.submitted_by.id}}/">{{ c.submitted_by }}</a></td>
+                        <td></td>
+                        <td><a href="/user/{{c.completed_by.id}}/">{{ c.completed_by }}</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+          </p>
+        </div>
+      </div>
+    </div>
+        <div class="col mb-4">
+      <div class="card shadow">
+        <div class="card-body">
+          <h5 class="card-title" style="text-align: center"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cpu-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M5.5.5a.5.5 0 0 0-1 0V2A2.5 2.5 0 0 0 2 4.5H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2A2.5 2.5 0 0 0 4.5 14v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14a2.5 2.5 0 0 0 2.5-2.5h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14A2.5 2.5 0 0 0 11.5 2V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5zm1 4.5A1.5 1.5 0 0 0 5 6.5v3A1.5 1.5 0 0 0 6.5 11h3A1.5 1.5 0 0 0 11 9.5v-3A1.5 1.5 0 0 0 9.5 5h-3zm0 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>
+            </svg> Invalid</h5>
+          <p class="card-text">
+            <table class="table list-group-flush table-hover">
+            <thead>
+                <tr>
+                    <td>#</td>
+                    <td>Title</td>
+                    <td>Filed By</td>
+                    <td>Assigned To</td>
+                    <td>Completed By</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in invalid %}
+                    <tr>
+                        <td><span class="badge badge-dark">{{ i.id }}</span></td>
+                        <td><a href="/ticket/{{i.id}}/">{{ i.title }}</a></td>
+                        <td><a href="/user/{{i.submitted_by.id}}/">{{ i.submitted_by }}</a></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

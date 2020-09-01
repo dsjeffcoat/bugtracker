@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">Create a Ticket</h1>
+    <p class="lead">Found a Bug somewhere? Submit your ticket below.</p>
+  </div>
+</div>
+
+<div class="container-fluid">
+<div class="card text-center">
+  <div class="card-header">
+    Submit Your Ticket
+  </div>
+  <div class="card-body">
+    <p class="card-text">
+    <div class="form-group">
+    <form action='' method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Submit">
+    </form>
+    </div>
+    </p>
+  </div>
+</div>
+</div>
+{% endblock  %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">Log In</h1>
+    <p class="lead">Log into your account for full access to BugTracker.</p>
+  </div>
+</div>
+
+<div class="container-fluid">
+<div class="card text-center">
+  <div class="card-header">
+    Log Into Your Account for Access
+  </div>
+  <div class="card-body">
+    <p class="card-text">
+    <div class="form-group">
+    <form action='' method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Log In">
+    </form>
+    </div>
+    </p>
+  </div>
+</div>
+</div>
+
+
+{% endblock  %}

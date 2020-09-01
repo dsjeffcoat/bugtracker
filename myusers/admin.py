@@ -17,7 +17,7 @@ class CustomUserAdmin(UserAdmin):
             {
                 'fields': (
                     'display_name',
-                    'age'
+                    'bio'
                 )
             }
         )

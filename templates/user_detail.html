@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">{{ user.display_name }}</h1>
+    <p class="lead">Username: {{ user.username }}</p>
+  </div>
+</div>
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+          <h5 class="card-title" style="text-align: center">
+              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cpu-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M5.5.5a.5.5 0 0 0-1 0V2A2.5 2.5 0 0 0 2 4.5H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2A2.5 2.5 0 0 0 4.5 14v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14a2.5 2.5 0 0 0 2.5-2.5h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14A2.5 2.5 0 0 0 11.5 2V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5zm1 4.5A1.5 1.5 0 0 0 5 6.5v3A1.5 1.5 0 0 0 6.5 11h3A1.5 1.5 0 0 0 11 9.5v-3A1.5 1.5 0 0 0 9.5 5h-3zm0 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>
+                </svg> Filed Tickets</h5>
+          <p class="card-text">
+            <table class="table list-group-flush table-hover">
+            <thead>
+                <tr>
+                    <td>#</td>
+                    <td>Title</td>
+                    <td>Filed By</td>
+                    <td>Assigned To</td>
+                    <td>Completed By</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for file in submitted %}
+                    <tr>
+                        <td><span class="badge badge-dark">{{ file.id }}</span></td>
+                        <td><a href="/ticket/{{file.id}}/">{{ file.title }}</a></td>
+                        <td><a href="/user/{{file.submitted_by.id}}/">{{ file.submitted_by }}</a></td>
+                        {% if not file.assigned_to %}
+                        <td></td>
+                        {% else %}
+                        <td><a href="/user/{{file.assigned_to.id}}/">{{ file.assigned_to }}</a></td>
+                        {% endif %}
+                        {% if not file.completed_by %}
+                        <td></td>
+                        {% else %}
+                        <td><a href="/user/{{file.completed_by.id}}/">{{ file.completed_by }}</a></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+          </p>
+        </div>
+      </div>
+</div>
+
+<div class="container">
+<div class="card">
+        <div class="card-body">
+          <h5 class="card-title" style="text-align: center">
+              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cpu-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M5.5.5a.5.5 0 0 0-1 0V2A2.5 2.5 0 0 0 2 4.5H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2A2.5 2.5 0 0 0 4.5 14v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14a2.5 2.5 0 0 0 2.5-2.5h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14A2.5 2.5 0 0 0 11.5 2V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5zm1 4.5A1.5 1.5 0 0 0 5 6.5v3A1.5 1.5 0 0 0 6.5 11h3A1.5 1.5 0 0 0 11 9.5v-3A1.5 1.5 0 0 0 9.5 5h-3zm0 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>
+                </svg> In-Progress Tickets</h5>
+          <p class="card-text">
+            <table class="table list-group-flush table-hover">
+            <thead>
+                <tr>
+                    <td>#</td>
+                    <td>Title</td>
+                    <td>Filed By</td>
+                    <td>Assigned To</td>
+                    <td>Completed By</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for work in assigned %}
+                    <tr>
+                        <td><span class="badge badge-dark">{{ work.id }}</span></td>
+                        <td><a href="/ticket/{{work.id}}/">{{ work.title }}</a></td>
+                        <td><a href="/user/{{work.submitted_by.id}}/">{{ work.submitted_by }}</a></td>
+                        <td><a href="/user/{{work.assigned_to.id}}/">{{ work.assigned_to }}</a></td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+          </p>
+        </div>
+      </div>
+</div>
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+          <h5 class="card-title" style="text-align: center">
+              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cpu-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M5.5.5a.5.5 0 0 0-1 0V2A2.5 2.5 0 0 0 2 4.5H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2A2.5 2.5 0 0 0 4.5 14v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14a2.5 2.5 0 0 0 2.5-2.5h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14A2.5 2.5 0 0 0 11.5 2V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5zm1 4.5A1.5 1.5 0 0 0 5 6.5v3A1.5 1.5 0 0 0 6.5 11h3A1.5 1.5 0 0 0 11 9.5v-3A1.5 1.5 0 0 0 9.5 5h-3zm0 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>
+                </svg> Completed Tickets</h5>
+          <p class="card-text">
+            <table class="table list-group-flush table-hover">
+            <thead>
+                <tr>
+                    <td>#</td>
+                    <td>Title</td>
+                    <td>Filed By</td>
+                    <td>Assigned To</td>
+                    <td>Completed By</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for done in finished %}
+                    <tr>
+                        <td><span class="badge badge-dark">{{ done.id }}</span></td>
+                        <td><a href="/ticket/{{done.id}}/">{{ done.title }}</a></td>
+                        <td><a href="/user/{{done.submitted_by.id}}/">{{ done.submitted_by }}</a></td>
+                        <td></td>
+                        <td><a href="/user/{{done.completed_by.id}}/">{{ done.completed_by }}</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+          </p>
+        </div>
+      </div>
+</div>
+{% endblock  %}
